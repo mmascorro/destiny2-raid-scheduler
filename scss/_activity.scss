@@ -1,0 +1,137 @@
+#register-container {
+  align-items: center;
+}
+
+.hour-list-item {
+  
+  margin-bottom: 2em;
+  
+  .hour-list-title { 
+    display: flex;
+    align-items: flex-end;
+    border-bottom: 1px solid $grey-lighter;
+    
+
+    h2 {
+      width: 140px;
+      font-size: 2em;
+      margin-right: 1em;
+    }
+
+    button {
+      margin-bottom: .5em;
+      span {
+        display: none;
+      }
+    }
+  }
+
+  ol {
+    margin-left: 1em;
+    padding-left: 1.2em;
+  }
+  li {
+    margin: 1em 0;
+  }
+  li .tag {
+    margin-right: .5em;
+  }
+
+  input[type=checkbox] { 
+    display: none;
+  }
+  .copy-users-btn {
+    display: none;
+  }
+
+  &.ping-builder {
+
+    input[type=checkbox] { 
+      display: inline-block;
+      margin: 0 .5em;
+    }
+    .build-ping span {
+      display: inline;
+      margin-left: .3em;
+    }
+    .copy-users-btn {
+      display: block;
+    }
+  }
+
+  &.no-registrations {
+
+    button.build-ping { 
+      display: none;
+    }
+  }
+
+  &.before {
+    opacity: .60;
+  }
+}
+
+
+.weekly-reset { 
+  background-color: $primary;
+  color: white;
+}
+
+h2 {
+  img {
+    width: 1.2em;
+    vertical-align: text-bottom;
+  }
+}
+
+
+
+span.username {
+  margin-right: .5em;
+}
+
+
+#tag-filter-controls {
+  display: flex;
+
+  label {
+    margin-right: 2em;
+  }
+}
+
+#tag-filter-controls {
+  label {
+    display: flex;
+    align-items: center;
+  }
+  input[type=checkbox] {
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    box-sizing: content-box;
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    border-radius: 4px;
+    border: 2px solid gray;
+    margin-right: .4em;
+    flex-shrink: 0;
+
+    &:checked {
+      background-color: white;
+      background-image: url('/static/board/images/check.svg');
+  
+    }
+  
+    &:focus {
+      width: 20px;
+      height: 20px;
+      border: 2px solid blue;
+    }
+  }
+
+  @include mobile {
+    width: 100vw;
+    overflow-y: scroll;
+  }
+}

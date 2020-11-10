@@ -1,0 +1,12 @@
+
+raidscheduler/settings/dev.py
+raidscheduler/settings/production.py
+
+venv/
+*.pyc
+__pycache__/
+
+/build/
+/static/
+
+/node_modules/

@@ -1,0 +1,111 @@
+{% extends "board/base.html" %}
+
+{% load static %}
+{% load datetime_display %}
+
+
+{% block content %}
+{% csrf_token %}
+
+<h1 class="" data-platform="{{ specified_platform.id }}" data-activity="{{ specified_activity.id }}" data-activity-live="{{ specified_activity.live_datetime|date:'c' }}">
+  Roster for <time datetime="{{ specified_date|date:'c' }}">{{ specified_date|date:'l, F d, Y' }}</time>
+</h1>
+<h2 class="">
+  {{ specified_activity.name }} on 
+  {% with 'board/images/'|add:specified_platform.logo as logo %}
+  <img src="{% static logo %}" alt="{{ specified_platform.name }}">
+  {% endwith %}
+  {{ specified_platform.name }}
+</h2>
+
+<a href="{% url 'register' specified_activity.slug specified_platform.slug specified_date|date:'Y-m-d' %}" class="button is-link">
+  Register
+</a>
+
+
+<div class="columns mt-2 instructions hide" data-instructions="activity">
+  <div class="column is-half">
+    <div class="box">
+      <h2>Instructions</h2>
+      <p>
+        <b>Here you can view times that other have registered interest in starting at.</b>
+        Names are listed by time of sign-up for each starting point.
+      </p>
+      <p>
+        All times are displayed in your local timezone, according to your browser. 
+        On desktop, you can verify UTC time by hovering your cursor over a displayed time.
+      </p>
+      <h3>Tags</h3>
+      <p>Toggle the tag checkboxes to highlight others that have chosen the desired tag.</p>
+      <h3>Build Ping</h3>
+      <p>If you want to ping multiple people at once in Discord, use the Build Ping button to enable checkboxes next to each user name.
+         You can then select the users and click the copy button to have a prepared list of names to paste into Discord.</p>
+      <button class="button close-help mt-2 is-danger is-outlined">Close</button>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<div class="is-flex is-justify-content-space-between">
+  <div class="">
+    {% if specified_date|date:'Y-m-d' != specified_activity.live_datetime|date:'Y-m-d'  %}
+      <a href="{% url 'activity' specified_activity.slug specified_platform.slug specified_date|prevDay|date:'Y-m-d' %}" class="button is-info is-outlined">< {{ specified_date|prevDay|date:'Y-m-d' }}</a>
+    {% endif %}
+  </div>
+  <div class="">
+    {% now 'Y-m-d' as actual_today %}
+    {% if specified_date|date:'Y-m-d' > specified_activity.live_datetime|date:'Y-m-d'  %}
+    <a href="{% url 'activity' specified_activity.slug specified_platform.slug %}" class="button is-info is-outlined">
+      {% if actual_today < specified_activity.live_datetime|date:'Y-m-d' %}
+      Start Date
+      {% else %}
+      Today
+      {% endif %}
+    </a>
+    {% endif %}
+  </div>
+  <div class="">
+    <a href="{% url 'activity' specified_activity.slug specified_platform.slug specified_date|nextDay|date:'Y-m-d' %}" class="button is-info is-outlined">{{ specified_date|nextDay|date:'Y-m-d'}} ></a>
+  </div>
+</div>
+
+
+<hr>
+<div id="tag-filter-controls">
+{% for tag in all_tags %}
+  <label class="checkbox" title="{{ tag.description }}">
+    <input type="checkbox" value="{{ tag.slug }}" class="tag-toggle" autocomplete="off">
+    {{ tag.name }}
+  </label>
+{% endfor %}
+</div>
+<hr>
+
+<div class="columns">
+  <div id="hour-list" class="column">
+  </div>
+  
+</div>
+
+
+
+<template id="hour-list-item-template">
+  <div class="hour-list-item">
+    <div class="hour-list-title">
+      <h2 class=""></h2>
+      <button class="button build-ping is-small">Build Ping <span>❌</span></button>
+    </div>
+    
+    <ol>
+
+    </ol>
+    <button class="button copy-users-btn">Copy Selected Users</button>
+  </div>
+</template>
+
+{% endblock content %}
+
+{% block js %}
+<script src="{% static 'js/activity.js' %}"></script>
+{% endblock js %}

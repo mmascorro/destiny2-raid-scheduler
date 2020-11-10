@@ -1,0 +1,31 @@
+{
+  "name": "scheduler",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "css": "node-sass --include-path node_modules/bulma/ --source-map true --output-style compressed -o build/css/ scss/",
+    "css:watch": "npm run css -- -w",
+    "build": "webpack --config webpack.js",
+    "watch": "webpack --config webpack.js --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:mmascorro/destiny2-raid-scheduler.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mmascorro/destiny2-raid-scheduler/issues"
+  },
+  "homepage": "https://github.com/mmascorro/destiny2-raid-scheduler",
+  "dependencies": {
+    "bulma": "^0.9.1",
+    "dayjs": "^1.9.3",
+    "nanoid": "^3.1.15",
+    "node-sass": "^4.14.1",
+    "webpack": "^5.2.0",
+    "webpack-cli": "^4.1.0"
+  }
+}

@@ -1,0 +1,99 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ title }}</title>
+  <link rel="icon" type="image/svg+xml" href="{% static 'board/images/logo.svg' %}">
+  <link rel="mask-icon" href="{% static 'board/images/logo.svg' %}" color="#000000">
+  <link rel="stylesheet" href="{% static 'css/main.css' %}">
+  {% block css %}{% endblock css %}
+</head>
+<body>
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="/">
+        <img src="{% static 'board/images/logo.svg' %}" alt="Logo" width="28" height="28">
+      </a>
+  
+      <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="main-nav">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+  
+    <div id="main-nav" class="navbar-menu">
+      <div class="navbar-start">
+        {% if specified_activity %}
+        <p class="navbar-item">
+          <strong>{{ specified_activity.name }}</strong>
+        </p>
+
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
+            Sign Up
+          </a>
+  
+          <div class="navbar-dropdown">
+            {% for platform in all_platforms %}
+              <a class="navbar-item {% if platform.slug == specified_platform.slug %}has-background-primary{% endif %}" href="{% url 'register' specified_activity.slug platform.slug %}">
+                {{ platform.name }}
+              </a>
+            {% endfor %}
+          </div>
+        </div>
+
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
+            View Roster
+          </a>
+  
+          <div class="navbar-dropdown">
+            {% for platform in all_platforms %}
+              <a class="navbar-item {% if platform.slug == specified_platform.slug %}has-background-primary{% endif %}" href="{% url 'activity' specified_activity.slug platform.slug %}">
+                {{ platform.name }}
+              </a>
+            {% endfor %}
+          </div>
+        </div>
+
+        {% endif %}
+
+      </div>
+  
+      <div class="navbar-end">
+        <div class="navbar-item ">
+          <div class="buttons">
+            {% if specified_activity %}
+              <button class="show-help button">Help</button>
+            {% endif %}
+            <a class="button is-danger is-light" href="{% url 'logout' %}">
+              Log Out
+            </a>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+
+
+  <div class="container">
+    {% block content %}{% endblock content %}
+  </div>
+
+  <script src="{% static 'js/index.js' %}"></script>
+
+
+  {% block js %}{% endblock js %}
+  <footer class="footer">
+    <div class="content has-text-centered">
+      <p>
+        <a href="https://github.com/mmascorro/destiny2-raid-scheduler">GitHub</a>
+    </div>
+  </footer>
+</body>
+</html>

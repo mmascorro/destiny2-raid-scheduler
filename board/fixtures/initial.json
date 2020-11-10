@@ -1,0 +1,92 @@
+[
+  {
+    "model": "board.platform", 
+    "pk": 1, 
+    "fields": {
+      "name": "PC",
+      "slug": "pc",
+      "logo": "pc.svg"
+    }
+  },
+  {
+    "model": "board.platform",
+    "pk": 2,
+    "fields":
+    {
+      "name": "PlayStation",
+      "slug": "ps",
+      "logo": "playstation.svg"
+    }
+  },
+  {
+    "model": "board.platform",
+    "pk": 3,
+    "fields":
+    {
+      "name": "Xbox",
+      "slug": "xb",
+      "logo": "xbox.svg"
+    }
+  },
+  {"model": "board.game",
+    "pk": 1,
+    "fields": {
+      "name": "Destiny 2",
+      "platform": [1,2,3]
+    }
+  },
+  {
+    "model": "board.gameactivity",
+    "pk": 1,
+    "fields": {
+      "name": "Deep Stone Crypt",
+      "slug": "deep-stone-crypt",
+      "game": 1,
+      "live_datetime": "2020-11-21T18:00Z"
+    }
+  },
+  {
+    "model": "board.tag", 
+    "pk": 1, 
+    "fields": {
+      "name": "Fresh", 
+      "slug": "fresh", 
+      "description": "Start from the beginning"
+    }
+  }, 
+  {
+    "model": "board.tag", 
+    "pk": 2, "fields": {
+      "name": "5⭐ Runtime", 
+      "slug": "five-star-runtime", 
+      "description": "Want to commit to a long run"
+    }
+  },
+  {
+    "model": "board.tag", 
+    "pk": 3, 
+    "fields": {
+      "name": "Streaming Ok", 
+      "slug": "streaming", 
+      "description": "Want to stream or ok with streaming"
+    }
+  },
+  {
+    "model": "board.tag", 
+    "pk": 4, 
+    "fields": {
+      "name": "Discovery Run", 
+      "slug": "discovery", 
+      "description": "No prior knowledge of the raid"
+    }
+  },
+  {
+    "model": "board.tag", 
+    "pk": 5, 
+    "fields": {
+      "name": "Substitute", 
+      "slug": "substitute", 
+      "description": "Willing to be a drop-in replacement"
+    }
+  }
+]

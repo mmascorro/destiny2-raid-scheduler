@@ -1,0 +1,56 @@
+$primary: #1fd9b7;
+
+@import "sass/utilities/_all";
+@import "sass/base/_all";
+@import "sass/elements/box";
+@import "sass/elements/button";
+@import "sass/elements/container";
+@import "sass/elements/image";
+@import "sass/elements/tag";
+@import "sass/elements/title";
+@import "sass/components/dropdown";
+@import "sass/components/menu";
+@import "sass/components/navbar";
+@import "sass/components/tabs";
+@import "sass/form/shared";
+@import "sass/form/tools";
+@import "sass/form/checkbox-radio";
+@import "sass/form/input-textarea";
+@import "sass/layout/footer";
+@import "sass/grid/columns";
+@import "sass/helpers/_all";
+
+@import "activity";
+@import "register";
+
+
+
+
+/* auth_index */
+.tabs img {
+  width: 32px;
+  height: 32px;
+  margin-right: .5em;
+}
+
+h1 {
+  font-size: 2em;
+}
+h2 {
+  font-size: 1.4em;
+}
+
+.is-link {
+  margin-top: .5em
+}
+
+.instructions {
+  h3 {
+    font-size: 1.2em;
+    margin-top: 1em;
+  }
+
+  &.hide {
+    display: none;
+  }
+}

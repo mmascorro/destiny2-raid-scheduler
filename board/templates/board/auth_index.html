@@ -1,0 +1,29 @@
+{% extends "board/base.html" %}
+
+{% load static %}
+{% load datetime_display %}
+
+
+{% block content %}
+
+  {% for activity in activities %}
+    <h1 class="is-size-3">{{ activity.name }}</h1>
+    <div class="tabs is-centered is-large is-fullwidth is-toggle ">
+      <ul>    
+        {% for platform in platforms %}
+          <li class="">
+              <span>
+                <a href="{% url 'register' activity.slug platform.slug %}" class="">
+                  {% with 'board/images/'|add:platform.logo as image_static %}
+                    <img src="{% static image_static %}" alt="{{ platform.name }}">
+                  {% endwith %}
+                  {{ platform.name }}
+                </a>
+              </span>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endfor %}
+
+{% endblock content %}
