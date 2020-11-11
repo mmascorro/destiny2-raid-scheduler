@@ -16,6 +16,13 @@
       width: 140px;
       font-size: 2em;
       margin-right: 1em;
+    
+      &.weekly-reset { 
+        background-color: $primary;
+        color: white;
+        width: auto;
+      }
+    
     }
 
     button {
@@ -72,10 +79,7 @@
 }
 
 
-.weekly-reset { 
-  background-color: $primary;
-  color: white;
-}
+
 
 h2 {
   img {
