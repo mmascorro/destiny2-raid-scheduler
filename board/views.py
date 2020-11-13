@@ -202,9 +202,8 @@ class RosterApi(APIView):
       hour_roster = {}
       for hm in markers:
         current_hour = hm.marker_datetime.strftime('%Y-%m-%dT%H:%M')
-        if current_hour in hour_roster:
-          print(hm.marker_datetime, hm.register_on)
-        else:
+        if current_hour not in hour_roster:
+
           hour_roster[current_hour] = []
 
         player_detail = {
@@ -216,7 +215,7 @@ class RosterApi(APIView):
           'register_on': hm.register_on
         }
 
-        for tag in hm.user.tags.all():
+        for tag in hm.user.tags.order_by('id'):
           player_detail['user']['tags'].append({
             'id': tag.id,
             'name': tag.name,
