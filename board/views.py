@@ -12,7 +12,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
 
-from datetime import datetime, time, timezone
+from datetime import datetime, time, timezone, timedelta
 import pytz
 
 from rest_framework.views import APIView
@@ -20,6 +20,9 @@ from rest_framework.response import Response
 from rest_framework import authentication, permissions, status
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from .serializers import HourMarkerSerializer, TagSerializer
+
+from tempfile import NamedTemporaryFile
+from openpyxl import Workbook
 
 def index(request):
 
@@ -151,6 +154,81 @@ def register(request, activity, platform, date=None):
     }
     return render(request, 'board/register.html', context)
 
+@login_required
+def sheet(request, activity, platform):
+
+  platform = Platform.objects.get(slug=platform)
+  activity = GameActivity.objects.get(slug=activity, game__platform=platform)
+
+  start_date_naive = datetime.strptime(request.GET.get('start'), '%Y-%m-%d')
+  start_date = start_date_naive.replace(tzinfo=timezone.utc)
+  end_date_naive = datetime.strptime(request.GET.get('end'), '%Y-%m-%d')
+  end_date = end_date_naive.replace(tzinfo=timezone.utc)
+  date_delta = end_date - start_date
+  total_days = date_delta.days
+
+  hour_range = range(24)
+
+  users = User.objects.filter(hourmarker__activity=activity, hourmarker__platform=platform, hourmarker__marker_datetime__range=(start_date, end_date)).order_by('username').distinct('username')
+
+  wb = Workbook()
+  ws = wb.active
+
+  #setup header row
+  header_row = []
+  header_row.append('User')
+
+  for i in range(date_delta.days + 1):
+    day = start_date + timedelta(days=i)
+    print(day)
+
+    for h in hour_range:
+      day_hour = day.replace(hour=h, minute=00)
+      print(day_hour)
+      header_row.append(day_hour)
+
+  ws.append(header_row)
+
+
+  for user in users:
+    row_data = []
+    row_data.append(user.username)
+
+    hour_markers = HourMarker.objects.filter(user=user, activity=activity, platform=platform).datetimes('marker_datetime','hour')
+    # print(hour_markers)
+    hms = list(hour_markers)
+
+
+    # numbers = [1, 2, 3, 4]
+
+    # filtered_numbers = [number for number in numbers if number < 3]
+
+
+    for i in range(date_delta.days + 1):
+      day = start_date + timedelta(days=i)
+      # print(day)
+
+      for h in hour_range:
+        day_hour = day.replace(hour=h, minute=00)
+        # print(day_hour)
+        filtered = [hm for hm in hms if hm == day_hour]
+        if filtered:
+          row_data.append('✅')
+        else:
+          row_data.append('')
+
+    ws.append(row_data)
+
+  with NamedTemporaryFile() as tmp:
+    wb.save(tmp.name)
+    tmp.seek(0)
+    stream = tmp.read()
+
+  response = HttpResponse(content=stream, content_type='application/ms-excel')
+  response['Content-Disposition'] = f'attachment; filename=report.xlsx'
+  return response
+
+  # return HttpResponse('ok')
 
 class HourMarkerApi(APIView):
     authentication_classes = [SessionAuthentication]

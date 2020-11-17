@@ -18,6 +18,9 @@ urlpatterns = [
     path('register/<str:activity>/<str:platform>/', views.register, name='register'),
     path('register/<str:activity>/<str:platform>/<str:date>', views.register, name='register'),
 
+    path('sheet/<str:activity>/<str:platform>', views.sheet, name='sheet'),
+
+
     path('hourmarker/', views.HourMarkerApi.as_view()),
     path('hourmarker/<int:activity>/<int:platform>/<str:date>/', views.HourMarkerApi.as_view()),
     path('roster/<int:activity>/<int:platform>/<str:date>', views.RosterApi.as_view(), name='roster'),
