@@ -180,11 +180,9 @@ def sheet(request, activity, platform):
 
   for i in range(date_delta.days + 1):
     day = start_date + timedelta(days=i)
-    print(day)
 
     for h in hour_range:
       day_hour = day.replace(hour=h, minute=00)
-      print(day_hour)
       header_row.append(day_hour)
 
   ws.append(header_row)
@@ -195,22 +193,15 @@ def sheet(request, activity, platform):
     row_data.append(user.username)
 
     hour_markers = HourMarker.objects.filter(user=user, activity=activity, platform=platform).datetimes('marker_datetime','hour')
-    # print(hour_markers)
     hms = list(hour_markers)
-
-
-    # numbers = [1, 2, 3, 4]
-
-    # filtered_numbers = [number for number in numbers if number < 3]
 
 
     for i in range(date_delta.days + 1):
       day = start_date + timedelta(days=i)
-      # print(day)
 
       for h in hour_range:
         day_hour = day.replace(hour=h, minute=00)
-        # print(day_hour)
+
         filtered = [hm for hm in hms if hm == day_hour]
         if filtered:
           row_data.append('✅')
@@ -227,8 +218,6 @@ def sheet(request, activity, platform):
   response = HttpResponse(content=stream, content_type='application/ms-excel')
   response['Content-Disposition'] = f'attachment; filename=report.xlsx'
   return response
-
-  # return HttpResponse('ok')
 
 class HourMarkerApi(APIView):
     authentication_classes = [SessionAuthentication]
