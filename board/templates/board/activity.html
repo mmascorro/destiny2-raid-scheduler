@@ -56,11 +56,11 @@
   <div class="">
     {% now 'Y-m-d' as actual_today %}
     {% if specified_date|date:'Y-m-d' > specified_activity.live_datetime|date:'Y-m-d'  %}
-    <a href="{% url 'activity' specified_activity.slug specified_platform.slug %}" class="button is-info is-outlined">
+    
       {% if actual_today < specified_activity.live_datetime|date:'Y-m-d' %}
-      Start Date
+      <a href="{% url 'activity' specified_activity.slug specified_platform.slug %}" class="button is-info is-outlined">Start Date</a>
       {% else %}
-      Today
+      <a href="{% url 'activity' specified_activity.slug specified_platform.slug %}" class="button is-info is-outlined today">Today</a>
       {% endif %}
     </a>
     {% endif %}

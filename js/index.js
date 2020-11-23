@@ -5,19 +5,6 @@ const utc = require('dayjs/plugin/utc');
 dayjs.extend(utc)
 dayjs.extend(localizedFormat)
 
-
-// let times = document.querySelectorAll('time');
-  
-// for(let timeTag of times) {
-//   let dt = timeTag.dateTime;
-//   let f = dayjs(dt);
-//   let g = f.format('LLL');
-
-//   timeTag.innerHTML = g;
-
-// }
-
-
 const navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
 
 if (navbarBurgers.length > 0) {
@@ -41,34 +28,64 @@ const showHelpButton = document.querySelector('.show-help');
 const closeHelpButton = document.querySelector('.close-help');
 const helpContent = document.querySelector('.instructions');
 
-showHelpButton.addEventListener('click', e => {
-  const instructionType = helpContent.dataset.instructions;
-  localStorage.removeItem(`${instructionType}-instructions`);
-  if (helpContent) {
-    helpContent.classList.remove('hide');
+if (showHelpButton && closeHelpButton && helpContent) {
+  showHelpButton.addEventListener('click', e => {
+    const instructionType = helpContent.dataset.instructions;
+    localStorage.removeItem(`${instructionType}-instructions`);
+    if (helpContent) {
+      helpContent.classList.remove('hide');
+    }
+  });
+  
+  closeHelpButton.addEventListener('click', e => {
+    const instructionType = helpContent.dataset.instructions;
+    localStorage.setItem(`${instructionType}-instructions`, 'hide');
+    if (helpContent) {
+      helpContent.classList.add('hide');
+    }
+  });
+  
+  //default instructions check
+  if (helpContent.dataset.instructions == 'register') {
+    if (localStorage.getItem('register-instructions')){
+      helpContent.classList.add('hide');
+    } else {
+      helpContent.classList.remove('hide');
+    }
   }
-});
-
-closeHelpButton.addEventListener('click', e => {
-  const instructionType = helpContent.dataset.instructions;
-  localStorage.setItem(`${instructionType}-instructions`, 'hide');
-  if (helpContent) {
-    helpContent.classList.add('hide');
-  }
-});
-
-//default instructions check
-if (helpContent.dataset.instructions == 'register') {
-  if (localStorage.getItem('register-instructions')){
-    helpContent.classList.add('hide');
-  } else {
-    helpContent.classList.remove('hide');
+  if (helpContent.dataset.instructions == 'activity') {
+    if (localStorage.getItem('activity-instructions')){
+      helpContent.classList.add('hide');
+    } else {
+      helpContent.classList.remove('hide');
+    }
   }
 }
-if (helpContent.dataset.instructions == 'activity') {
-  if (localStorage.getItem('activity-instructions')){
-    helpContent.classList.add('hide');
+
+const activityLiveDateData = document.querySelector('body').dataset.specifiedActivityLiveDate;
+const activityLiveDate = dayjs(activityLiveDateData);
+
+
+let viewerDateTime = dayjs();
+
+//check today links
+const todayLinks = document.querySelectorAll('a.today');
+todayLinks.forEach((tl) => {
+
+  let existingLink = tl.href;
+  let viewerDate = viewerDateTime.format('YYYY-MM-DD');
+  
+  let newLink = '';
+  if (activityLiveDate) {
+    if (activityLiveDate.isBefore(viewerDate)) {
+      newLink = `${existingLink}${viewerDate}`;
+    } else {
+      newLink = `${existingLink}${activityLiveDate.format('YYYY-MM-DD')}`;
+    }
   } else {
-    helpContent.classList.remove('hide');
+    newLink = `${existingLink}${viewerDate}`;
   }
-}
+  tl.href = newLink;
+});
+
+

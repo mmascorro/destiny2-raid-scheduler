@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="{% static 'css/main.css' %}">
   {% block css %}{% endblock css %}
 </head>
-<body>
+<body {% if specified_activity%}data-specified-activity-live-date="{{ specified_activity.live_datetime|date:'Y-m-d'}}"{% endif %}>
   <nav class="navbar" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
       <a class="navbar-item" href="/">
@@ -38,7 +38,7 @@
   
           <div class="navbar-dropdown">
             {% for platform in all_platforms %}
-              <a class="navbar-item {% if platform.slug == specified_platform.slug %}has-background-primary{% endif %}" href="{% url 'register' specified_activity.slug platform.slug %}">
+              <a class="navbar-item {% if platform.slug == specified_platform.slug %}has-background-primary{% endif %} today" href="{% url 'register' specified_activity.slug platform.slug %}">
                 {{ platform.name }}
               </a>
             {% endfor %}
@@ -52,7 +52,7 @@
   
           <div class="navbar-dropdown">
             {% for platform in all_platforms %}
-              <a class="navbar-item {% if platform.slug == specified_platform.slug %}has-background-primary{% endif %}" href="{% url 'activity' specified_activity.slug platform.slug %}">
+              <a class="navbar-item {% if platform.slug == specified_platform.slug %}has-background-primary{% endif %} today" href="{% url 'activity' specified_activity.slug platform.slug %}">
                 {{ platform.name }}
               </a>
             {% endfor %}

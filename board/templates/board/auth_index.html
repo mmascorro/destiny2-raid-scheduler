@@ -13,7 +13,7 @@
         {% for platform in platforms %}
           <li class="">
               <span>
-                <a href="{% url 'register' activity.slug platform.slug %}" class="">
+                <a href="{% url 'register' activity.slug platform.slug %}" class="today">
                   {% with 'board/images/'|add:platform.logo as image_static %}
                     <img src="{% static image_static %}" alt="{{ platform.name }}">
                   {% endwith %}
