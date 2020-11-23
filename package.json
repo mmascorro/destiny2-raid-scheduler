@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "css": "node-sass --include-path node_modules/bulma/ --source-map true --output-style compressed -o build/css/ scss/",
+    "css:build": "node-sass --include-path node_modules/bulma/ --source-map true --output-style compressed -o build/css/ scss/",
     "css:watch": "npm run css -- -w",
-    "build": "webpack --config webpack.js",
-    "watch": "webpack --config webpack.js --watch"
+    "js:build": "webpack --config webpack.js",
+    "js:watch": "webpack --config webpack.js --watch"
   },
   "repository": {
     "type": "git",
