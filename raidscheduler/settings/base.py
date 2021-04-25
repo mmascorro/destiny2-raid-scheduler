@@ -88,6 +88,8 @@ AUTHENTICATION_BACKENDS = [
     'board.authbackend.DiscordBackend'
 ]
 
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
 LOGIN_URL = '/login'
 
 # Internationalization
