@@ -216,7 +216,7 @@ def sheet(request, activity, platform):
     stream = tmp.read()
 
   response = HttpResponse(content=stream, content_type='application/ms-excel')
-  response['Content-Disposition'] = f'attachment; filename=report.xlsx'
+  response['Content-Disposition'] = f'attachment; filename={platform.slug}-report.xlsx'
   return response
 
 class HourMarkerApi(APIView):
