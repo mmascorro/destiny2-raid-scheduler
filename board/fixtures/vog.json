@@ -1,0 +1,113 @@
+[
+  {
+    "model": "board.platform", 
+    "pk": 1, 
+    "fields": {
+      "name": "PC",
+      "slug": "pc",
+      "logo": "pc.svg"
+    }
+  },
+  {
+    "model": "board.platform",
+    "pk": 2,
+    "fields":
+    {
+      "name": "PlayStation",
+      "slug": "ps",
+      "logo": "playstation.svg"
+    }
+  },
+  {
+    "model": "board.platform",
+    "pk": 3,
+    "fields":
+    {
+      "name": "Xbox",
+      "slug": "xb",
+      "logo": "xbox.svg"
+    }
+  },
+  {"model": "board.game",
+    "pk": 1,
+    "fields": {
+      "name": "Destiny 2",
+      "platform": [1,2,3]
+    }
+  },
+  {
+    "model": "board.gameactivity",
+    "pk": 1,
+    "fields": {
+      "name": "Vault of Glass",
+      "slug": "vault-of-glass",
+      "game": 1,
+      "live_datetime": "2021-05-22T17:00Z",
+      "end_datetime": "2021-05-25T17:00Z"
+    }
+  },
+  {
+    "model": "board.tag", 
+    "fields": {
+      "name": "Discovery Run", 
+      "slug": "discovery", 
+      "description": "No prior knowledge of the raid at all"
+    }
+  },
+  {
+    "model": "board.tag", 
+    "fields": {
+      "name": "Discovery-ish", 
+      "slug": "discovery-ish", 
+      "description": "layed in Destiny 1 / Seen videos. Maybe don't remember details."
+    }
+  },
+  {
+    "model": "board.tag", 
+    "fields": {
+      "name": "Spoiled", 
+      "slug": "spoiled", 
+      "description": "Ok with full story/mechanic spoilers."
+    }
+  },
+  {
+    "model": "board.tag", 
+    "fields": {
+      "name": "Fresh", 
+      "slug": "fresh", 
+      "description": "Start from the beginning"
+    }
+  }, 
+  {
+    "model": "board.tag", 
+    "fields": {
+      "name": "Tempo's Edge", 
+      "slug": "tempos-edge", 
+      "description": "Want to complete the new Triumph."
+    }
+  },
+  {
+    "model": "board.tag", 
+    "fields": {
+      "name": "5⭐ Runtime", 
+      "slug": "five-star-runtime", 
+      "description": "Want to commit to a long run"
+    }
+  },
+  {
+    "model": "board.tag", 
+    "fields": {
+      "name": "Streaming Ok", 
+      "slug": "streaming", 
+      "description": "Want to stream or ok with streaming"
+    }
+  },
+  {
+    "model": "board.tag", 
+    "fields": {
+      "name": "Substitute", 
+      "slug": "substitute", 
+      "description": "Willing to be a drop-in replacement"
+    }
+  }
+]
