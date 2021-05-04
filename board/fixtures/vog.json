@@ -51,7 +51,7 @@
     "fields": {
       "name": "Discovery Run", 
       "slug": "discovery", 
-      "description": "No prior knowledge of the raid at all"
+      "description": "No prior knowledge of the raid at all."
     }
   },
   {
@@ -59,7 +59,7 @@
     "fields": {
       "name": "Discovery-ish", 
       "slug": "discovery-ish", 
-      "description": "layed in Destiny 1 / Seen videos. Maybe don't remember details."
+      "description": "Played in Destiny 1 or seen videos, but don't remember details."
     }
   },
   {
@@ -75,7 +75,7 @@
     "fields": {
       "name": "Fresh", 
       "slug": "fresh", 
-      "description": "Start from the beginning"
+      "description": "Start from the beginning."
     }
   }, 
   {
@@ -83,7 +83,7 @@
     "fields": {
       "name": "Tempo's Edge", 
       "slug": "tempos-edge", 
-      "description": "Want to complete the new Triumph."
+      "description": "Interested in completing the new Triumph."
     }
   },
   {
@@ -91,7 +91,7 @@
     "fields": {
       "name": "5⭐ Runtime", 
       "slug": "five-star-runtime", 
-      "description": "Want to commit to a long run"
+      "description": "Want to commit to a long run."
     }
   },
   {
@@ -99,7 +99,7 @@
     "fields": {
       "name": "Streaming Ok", 
       "slug": "streaming", 
-      "description": "Want to stream or ok with streaming"
+      "description": "Want to stream or ok with streaming."
     }
   },
   {
@@ -107,7 +107,7 @@
     "fields": {
       "name": "Substitute", 
       "slug": "substitute", 
-      "description": "Willing to be a drop-in replacement"
+      "description": "Willing to be a drop-in replacement."
     }
   }
 ]
