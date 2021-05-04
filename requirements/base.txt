@@ -3,4 +3,4 @@ djangorestframework==3.12.4
 psycopg2==2.8.6
 Authlib==0.15.3
 requests==2.25.1
-openpyxl==3.0.7
+openpyxl==3.0.6
