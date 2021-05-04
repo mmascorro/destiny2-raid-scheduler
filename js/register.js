@@ -239,9 +239,12 @@ function setUpTagControls() {
       }
       //toggle spoiler level choices
       let group1Checked = document.querySelectorAll('.tag-group-1:checked');
-      group1Checked.forEach(g1cb => {
-        g1cb.click()
-      });
+      if (cb.classList.contains('tag-group-1')) {
+        group1Checked.forEach(g1cb => {
+          g1cb.click()
+        });
+      }
+
     })
 
     //toggle spoiler level choices
