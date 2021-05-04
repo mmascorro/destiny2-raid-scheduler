@@ -25,6 +25,7 @@ const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 const activityId = parseInt(h1.dataset.activity)
 const platformId = parseInt(h1.dataset.platform)
 const activityLive = dayjs(h1.dataset.activityLive);
+const activityEnd = dayjs(h1.dataset.activityEnd);
 const weeklyReset = {
   day: 2,
   hour: 17,

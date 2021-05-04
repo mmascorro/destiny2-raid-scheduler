@@ -15,6 +15,7 @@ class GameActivity(models.Model):
   slug = models.SlugField()
   game = models.ForeignKey(Game, on_delete=models.CASCADE)
   live_datetime = models.DateTimeField()
+  end_datetime = models.DateTimeField(null=True)
 
 class HourMarker(models.Model):
   activity = models.ForeignKey(GameActivity, on_delete=models.CASCADE)
