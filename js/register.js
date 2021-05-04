@@ -237,7 +237,17 @@ function setUpTagControls() {
           }
         )
       }
+      //toggle spoiler level choices
+      let group1Checked = document.querySelectorAll('.tag-group-1:checked');
+      group1Checked.forEach(g1cb => {
+        g1cb.click()
+      });
     })
+
+    //toggle spoiler level choices
+    if (cb.value <= 3) {
+      cb.classList.add('tag-group-1')
+    }
 
   });
 }
