@@ -141,7 +141,7 @@ def register(request, activity, platform, date=None):
       return redirect(reverse('register', args=[activity.slug, platform.slug, dt]))
 
     all_platforms = Platform.objects.all()
-    all_tags = Tag.objects.all()
+    all_tags = Tag.objects.all().order_by('id')
 
     context = {
       'title': specified_date.strftime('%Y-%m-%d'),
