@@ -6,7 +6,7 @@ class HourMarkerSerializer(serializers.ModelSerializer):
     user = serializers.PrimaryKeyRelatedField(read_only=True, default=serializers.CurrentUserDefault())
     class Meta:
         model = HourMarker
-        fields = ['id', 'activity', 'platform', 'user', 'marker_datetime', 'register_on']
+        fields = ['id', 'activity', 'user', 'marker_datetime', 'register_on']
 
 class TagSerializer(serializers.ModelSerializer):
     class  Meta:

@@ -31,33 +31,13 @@
           <strong>{{ specified_activity.name }}</strong>
         </p>
 
-        <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link">
-            Sign Up
-          </a>
-  
-          <div class="navbar-dropdown">
-            {% for platform in all_platforms %}
-              <a class="navbar-item {% if platform.slug == specified_platform.slug %}has-background-primary{% endif %} today" href="{% url 'register' specified_activity.slug platform.slug %}">
-                {{ platform.name }}
-              </a>
-            {% endfor %}
-          </div>
-        </div>
+        <a class="navbar-item" href="{% url 'register' specified_activity.slug %}">
+          Sign Up
+        </a>
 
-        <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link">
-            View Roster
-          </a>
-  
-          <div class="navbar-dropdown">
-            {% for platform in all_platforms %}
-              <a class="navbar-item {% if platform.slug == specified_platform.slug %}has-background-primary{% endif %} today" href="{% url 'activity' specified_activity.slug platform.slug %}">
-                {{ platform.name }}
-              </a>
-            {% endfor %}
-          </div>
-        </div>
+        <a class="navbar-item" href="{% url 'activity' specified_activity.slug %}">
+          View Roster
+        </a>
 
         {% endif %}
 

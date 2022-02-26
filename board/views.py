@@ -27,16 +27,8 @@ from openpyxl import Workbook
 def index(request):
 
   if request.user.is_authenticated:
-
-    activities = GameActivity.objects.all()
-    platforms = Platform.objects.all()
-
-    context = {
-      'title': settings.PUBLIC_TITLE,
-      'activities': activities,
-      'platforms': platforms
-    }
-    return render(request, 'board/auth_index.html', context)
+    activity = GameActivity.objects.get(pk=1)
+    return redirect(reverse('activity', args=[activity.slug]))
 
   else:
     context = {
@@ -86,34 +78,32 @@ def authorize(request):
 
 
 @login_required
-def activity(request, activity, platform, date=None):
+def activity(request, activity, date=None):
 
-    platform = Platform.objects.get(slug=platform)
-    activity = GameActivity.objects.get(slug=activity, game__platform=platform)
+    # platform = Platform.objects.get(slug=platform)
+    activity = GameActivity.objects.get(slug=activity)
 
     if not date:
       if datetime.now(timezone.utc) < activity.live_datetime:
         dt = activity.live_datetime.strftime('%Y-%m-%d')
       else:
         dt = datetime.now(timezone.utc).strftime('%Y-%m-%d')
-      return redirect(reverse('activity', args=[activity.slug, platform.slug, dt]))
+      return redirect(reverse('activity', args=[activity.slug, dt]))
 
     specified_date = datetime.strptime(date, '%Y-%m-%d')
     if specified_date.date() < activity.live_datetime.date():
       dt = activity.live_datetime.strftime('%Y-%m-%d')
-      return redirect(reverse('activity', args=[activity.slug, platform.slug, dt]))
+      return redirect(reverse('activity', args=[activity.slug, dt]))
 
 
     markers = activity.hourmarker_set.all()
-    all_platforms = Platform.objects.all()
+    # all_platforms = Platform.objects.all()
     all_tags = Tag.objects.all()
   
     context =  {
       'title': specified_date.strftime('%Y-%m-%d'),
       'specified_date': specified_date,
-      'specified_platform': platform,
       'specified_activity': activity,
-      'all_platforms': all_platforms,
       'all_tags': all_tags
     }
 
@@ -121,41 +111,41 @@ def activity(request, activity, platform, date=None):
 
 
 @login_required
-def register(request, activity, platform, date=None):
+def register(request, activity, date=None):
 
-    platform = Platform.objects.get(slug=platform)
-    activity = GameActivity.objects.get(slug=activity, game__platform=platform)
+    # platform = Platform.objects.get(slug=platform)
+    activity = GameActivity.objects.get(slug=activity)
 
     if not date:
       if datetime.now(timezone.utc) < activity.live_datetime:
         dt = activity.live_datetime.strftime('%Y-%m-%d')
       else:
         dt = datetime.now(timezone.utc).strftime('%Y-%m-%d')
-      return redirect(reverse('register', args=[activity.slug, platform.slug, dt]))
+      return redirect(reverse('register', args=[activity.slug, dt]))
 
     specified_date = datetime.strptime(date, '%Y-%m-%d')
 
     specified_date = datetime.strptime(date, '%Y-%m-%d')
     if specified_date.date() < activity.live_datetime.date():
       dt = activity.live_datetime.strftime('%Y-%m-%d')
-      return redirect(reverse('register', args=[activity.slug, platform.slug, dt]))
+      return redirect(reverse('register', args=[activity.slug, dt]))
 
-    all_platforms = Platform.objects.all()
+    # all_platforms = Platform.objects.all()
     all_tags = Tag.objects.all().order_by('id')
 
     context = {
       'title': specified_date.strftime('%Y-%m-%d'),
       'specified_date': specified_date,
-      'specified_platform': platform,
+      # 'specified_platform': platform,
       'specified_activity': activity,
-      'all_platforms': all_platforms,
+      # 'all_platforms': all_platforms,
       'all_tags': all_tags
 
     }
     return render(request, 'board/register.html', context)
 
 @login_required
-def sheet(request, activity, platform):
+def sheet(request, activity):
 
   platform = Platform.objects.get(slug=platform)
   activity = GameActivity.objects.get(slug=activity, game__platform=platform)
@@ -222,12 +212,12 @@ def sheet(request, activity, platform):
 class HourMarkerApi(APIView):
     authentication_classes = [SessionAuthentication]
 
-    def get(self, request, activity, platform, date,  format=None):
+    def get(self, request, activity, date,  format=None):
       specified_date = datetime.strptime(date, '%Y-%m-%d')
       startDateTime = request.GET.get('start')
       endDateTime = request.GET.get('end')
 
-      hm = HourMarker.objects.filter(user=request.user, activity=activity, platform=platform, marker_datetime__range=(startDateTime, endDateTime))
+      hm = HourMarker.objects.filter(user=request.user, activity=activity, marker_datetime__range=(startDateTime, endDateTime))
       serializer = HourMarkerSerializer(hm, many=True)
       return Response(serializer.data)
     
@@ -256,7 +246,7 @@ class RosterApi(APIView):
     authentication_classes = [SessionAuthentication]
 
 
-    def get(self, request, activity, platform, date, format=None):
+    def get(self, request, activity, date, format=None):
       specified_date = datetime.strptime(date, '%Y-%m-%d')
       startDateTime = request.GET.get('start')
       endDateTime = request.GET.get('end')
@@ -264,7 +254,7 @@ class RosterApi(APIView):
 
       dsc = GameActivity.objects.get(pk=activity)
 
-      markers = dsc.hourmarker_set.filter(platform=platform, marker_datetime__range=(startDateTime, endDateTime)).order_by('register_on')
+      markers = dsc.hourmarker_set.filter(marker_datetime__range=(startDateTime, endDateTime)).order_by('register_on')
 
       hour_roster = {}
       for hm in markers:

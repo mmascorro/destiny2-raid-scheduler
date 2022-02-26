@@ -23,7 +23,7 @@ while (count--) {
 
 const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 const activityId = parseInt(h1.dataset.activity)
-const platformId = parseInt(h1.dataset.platform)
+// const platformId = parseInt(h1.dataset.platform)
 const activityLive = dayjs(h1.dataset.activityLive);
 const activityEnd = dayjs(h1.dataset.activityEnd);
 const weeklyReset = {
@@ -37,7 +37,7 @@ let roster_detail;
 let localMinute = specifiedDate.utc().hour(00).minute(00).local().minute();
 let localDayUtcStart = specifiedDate.hour(00).minute(localMinute).utc().format('YYYY-MM-DDTHH:mm');
 let localDayUtcEnd = specifiedDate.hour(23).minute(localMinute).utc().format('YYYY-MM-DDTHH:mm');
-let rosterUrl = `/roster/${activityId}/${platformId}/${specifiedDate.format('YYYY-MM-DD')}?start=${localDayUtcStart}Z&end=${localDayUtcEnd}Z`
+let rosterUrl = `/roster/${activityId}/${specifiedDate.format('YYYY-MM-DD')}?start=${localDayUtcStart}Z&end=${localDayUtcEnd}Z`
 
 fetch(rosterUrl, {
   method: 'get',
@@ -79,40 +79,6 @@ buildList = () => {
       h2.innerHTML = title;
       h2.title = currentLocalHour.utc().format('YYYY-MM-DDTHH:mm');
 
-
-      let pingBuilderStart = hourListItem.querySelector('.build-ping');
-
-      pingBuilderStart.addEventListener('click', e => {
-        let hli = document.getElementById(hliId);
-        let hourCheckboxes = document.querySelectorAll(`#${hliId} input[type=checkbox]:checked`);
-
-        if (hli.classList.contains('ping-builder')) {
-          hli.classList.remove('ping-builder');
-          hourCheckboxes.forEach(c => {
-            c.checked = false;
-          })
-        } else { 
-          hli.classList.add('ping-builder');
-        }
-      })
-
-      let pingBuilderCopy = hourListItem.querySelector('.copy-users-btn');
-      pingBuilderCopy.addEventListener('click', e => {
-        
-        let hourCheckboxes = document.querySelectorAll(`#${hliId} input[type=checkbox]:checked`);
-        let pingList = '';
-        hourCheckboxes.forEach((hcb) => {
-          pingList += hcb.value + ' ';
-        });
-        if (hourCheckboxes.length) {
-          navigator.clipboard.writeText(pingList).then(function() {
-            console.log('copied..')
-          });
-        }
-      })
-
-
-
       let currentLocalHourFormatted = currentLocalHour.format('YYYY-MM-DDTHH:mm')
       let currentUtcHourFormatted = currentLocalHour.utc().format('YYYY-MM-DDTHH:mm')
   
@@ -122,16 +88,12 @@ buildList = () => {
         roster_detail[currentUtcHourFormatted].forEach((rd) => {
           let li = document.createElement('li');
           let discordAt = `@${rd.user.name}`;
-          let pingCheckbox = document.createElement('input');
-          pingCheckbox.type = 'checkbox';
-          pingCheckbox.value = discordAt;
 
           let span = document.createElement('span');
           span.classList.add('username');
           span.innerHTML = discordAt;
           span.title = `${discordAt} registered at ${rd.register_on}`;
 
-          li.appendChild(pingCheckbox);
           li.appendChild(span);
           ol.appendChild(li);
 
@@ -158,13 +120,7 @@ buildList = () => {
       }
 
       hourList.appendChild(hourListItem);
-
     }
-
-  
-
-  
-  
   });
 }
 

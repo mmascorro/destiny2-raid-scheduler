@@ -7,18 +7,11 @@
 {% csrf_token %}
 
 
-<h1 class="" data-platform="{{ specified_platform.id }}" data-activity="{{ specified_activity.id }}" data-activity-live="{{ specified_activity.live_datetime|date:'c' }}" data-activity-end="{{ specified_activity.end_datetime|date:'c' }}">
+<h1 class="" data-activity="{{ specified_activity.id }}" data-activity-live="{{ specified_activity.live_datetime|date:'c' }}" data-activity-end="{{ specified_activity.end_datetime|date:'c' }}">
   Registration for <time datetime="{{ specified_date|date:'c' }}">{{ specified_date|date:'l, F d, Y' }}</time>
 </h1>
-<h2 class="">
-  {{ specified_activity.name }} on 
-  {% with 'board/images/'|add:specified_platform.logo as logo %}
-  <img src="{% static logo %}">
-  {% endwith %}
-  {{ specified_platform.name }}
-</h2>
 
-<a href="{% url 'activity' specified_activity.slug specified_platform.slug specified_date|date:'Y-m-d' %}" class="button is-link">
+<a href="{% url 'activity' specified_activity.slug specified_date|date:'Y-m-d' %}" class="button is-link">
   View Roster
 </a>
 
@@ -40,7 +33,7 @@
 <div class="is-flex is-justify-content-space-between">
   <div class=>
     {% if specified_date|date:'Y-m-d' != specified_activity.live_datetime|date:'Y-m-d'  %}
-      <a href="{% url 'register' specified_activity.slug specified_platform.slug specified_date|prevDay|date:'Y-m-d' %}" class="button is-info is-outlined">< {{ specified_date|prevDay|date:'Y-m-d' }}</a>
+      <a href="{% url 'register' specified_activity.slug specified_date|prevDay|date:'Y-m-d' %}" class="button is-info is-outlined">< {{ specified_date|prevDay|date:'Y-m-d' }}</a>
     {% endif %}
   </div>
   <div class="">
@@ -48,15 +41,15 @@
     {% if specified_date|date:'Y-m-d' > specified_activity.live_datetime|date:'Y-m-d'  %}
     
       {% if actual_today < specified_activity.live_datetime|date:'Y-m-d' %}
-      <a href="{% url 'register' specified_activity.slug specified_platform.slug %}" class="button is-info is-outlined">Start Date</a>
+      <a href="{% url 'register' specified_activity.slug %}" class="button is-info is-outlined">Start Date</a>
       {% else %}
-      <a href="{% url 'register' specified_activity.slug specified_platform.slug %}" class="button is-info is-outlined today">Today</a>
+      <a href="{% url 'register' specified_activity.slug %}" class="button is-info is-outlined today">Today</a>
       {% endif %}
     </a>
     {% endif %}
   </div>
   <div class="">
-    <a href="{% url 'register' specified_activity.slug specified_platform.slug specified_date|nextDay|date:'Y-m-d' %}" class="button is-info is-outlined">{{ specified_date|nextDay|date:'Y-m-d'}} ></a>
+    <a href="{% url 'register' specified_activity.slug specified_date|nextDay|date:'Y-m-d' %}" class="button is-info is-outlined">{{ specified_date|nextDay|date:'Y-m-d'}} ></a>
   </div>
 </div>
 <hr>

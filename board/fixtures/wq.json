@@ -39,11 +39,11 @@
     "model": "board.gameactivity",
     "pk": 1,
     "fields": {
-      "name": "Vault of Glass",
-      "slug": "vault-of-glass",
+      "name": "Vow of the Disciple",
+      "slug": "vow-of-the-disciple",
       "game": 1,
-      "live_datetime": "2021-05-22T17:00Z",
-      "end_datetime": "2021-05-25T17:00Z"
+      "live_datetime": "2022-03-05T18:00Z",
+      "end_datetime": "2022-03-08T17:00Z"
     }
   },
   {
@@ -52,14 +52,6 @@
       "name": "Discovery Run", 
       "slug": "discovery", 
       "description": "No prior knowledge of the raid at all."
-    }
-  },
-  {
-    "model": "board.tag", 
-    "fields": {
-      "name": "Discovery-ish", 
-      "slug": "discovery-ish", 
-      "description": "Played in Destiny 1 or seen videos, but don't remember details."
     }
   },
   {
@@ -78,14 +70,6 @@
       "description": "Start from the beginning."
     }
   }, 
-  {
-    "model": "board.tag", 
-    "fields": {
-      "name": "Tempo's Edge", 
-      "slug": "tempos-edge", 
-      "description": "Interested in completing the new Triumph."
-    }
-  },
   {
     "model": "board.tag", 
     "fields": {

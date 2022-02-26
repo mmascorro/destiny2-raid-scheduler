@@ -19,7 +19,6 @@ class GameActivity(models.Model):
 
 class HourMarker(models.Model):
   activity = models.ForeignKey(GameActivity, on_delete=models.CASCADE)
-  platform = models.ForeignKey(Platform, on_delete=models.CASCADE)
   user = models.ForeignKey(User, on_delete=models.CASCADE)
   marker_datetime = models.DateTimeField()
   register_on = models.DateTimeField(auto_now=True)

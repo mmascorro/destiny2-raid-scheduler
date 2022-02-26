@@ -1,6 +1,6 @@
-Django==3.2
-djangorestframework==3.12.4
-psycopg2==2.8.6
-Authlib==0.15.3
-requests==2.25.1
-openpyxl==3.0.6
+Django==4.0.1
+djangorestframework==3.13.1
+psycopg2==2.9.3
+Authlib==0.15.5
+requests==2.27.1
+openpyxl==3.0.9

@@ -9,7 +9,6 @@ dayjs.extend(localizedFormat)
 const h1 = document.querySelector('h1');
 
 let specifiedDate = dayjs(document.querySelector('time').dateTime, 'YYYY-MM-DDTHH:mm:ss')
-const specifiedPlatform = parseInt(h1.dataset.platform)
 const specifiedActivity = parseInt(h1.dataset.activity)
 
 //set up hour grid for display
@@ -24,7 +23,6 @@ while (count--) {
 
 const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 const activityId = parseInt(h1.dataset.activity)
-const platformId = parseInt(h1.dataset.platform)
 const activityLive = dayjs(h1.dataset.activityLive);
 const activityEnd = dayjs(h1.dataset.activityEnd);
 const weeklyReset = {
@@ -42,7 +40,7 @@ let localMinute = specifiedDate.utc().hour(00).minute(00).local().minute();
 
 let localDayUtcStart = specifiedDate.hour(00).minute(localMinute).utc().format('YYYY-MM-DDTHH:mm');
 let localDayUtcEnd = specifiedDate.hour(23).minute(localMinute).utc().format('YYYY-MM-DDTHH:mm');
-let rosterUrl = `/hourmarker/${specifiedActivity}/${specifiedPlatform}/${specifiedDate.format('YYYY-MM-DD')}/?start=${localDayUtcStart}Z&end=${localDayUtcEnd}Z`
+let rosterUrl = `/hourmarker/${specifiedActivity}/${specifiedDate.format('YYYY-MM-DD')}/?start=${localDayUtcStart}Z&end=${localDayUtcEnd}Z`
 
 fetch(rosterUrl, {
   method: 'get',
@@ -110,7 +108,6 @@ function buildList() {
         if (e.target.checked) {
           let data = {
             activity: activityId,
-            platform: platformId,
             marker_datetime: e.target.value
           }
           fetch('/hourmarker/', {
@@ -248,7 +245,7 @@ function setUpTagControls() {
     })
 
     //toggle spoiler level choices
-    if (cb.value <= 3) {
+    if (cb.value <= 2) {
       cb.classList.add('tag-group-1')
     }
 
